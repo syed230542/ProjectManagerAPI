@@ -1,4 +1,5 @@
 ﻿using ProjectManagerAPI.Models;
+using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
@@ -32,10 +33,10 @@ namespace ProjectManagerAPI.Controllers
 
         [HttpGet]
         [Route("GetByProjectId")]
-        public Task GetByProjectId(int id)
+        public List<Task> GetByProjectId(int id)
         {
-            return db.Tasks
-                .FirstOrDefault(m => m.ProjectID == id);
+            var Projects = db.Projects.FirstOrDefault(m => m.ProjectID == id);
+            return Projects.Tasks.ToList();
         }
 
         [Route("Delete")]
