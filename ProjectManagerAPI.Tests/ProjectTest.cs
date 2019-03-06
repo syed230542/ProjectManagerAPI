@@ -31,6 +31,15 @@ namespace ProjectManagerAPI.Tests
         }
 
         [TestMethod]
+        public void GetById()
+        {
+            var context = new TestContext();
+            var controller = new ProjectController(context);
+            var okresult = controller.GetById(1002);
+            Assert.IsNull(okresult);
+        }
+
+        [TestMethod]
         public void SaveProjects()
         {
             var context = new TestContext();
@@ -57,7 +66,17 @@ namespace ProjectManagerAPI.Tests
             var controller = new ProjectController(context);
             var result = controller.DeleteProject(1) as OkResult;
             Assert.IsNotNull(result);
+        }
 
+        [TestMethod]
+        public void Search()
+        {
+            var context = new TestContext();
+            context.Projects.Add(GetDemoProject());
+
+            var controller = new ProjectController(context);
+            var result = controller.Search("test") as OkNegotiatedContentResult<DbSet<User>>;
+            Assert.IsNull(result);
         }
 
         //ProjectDBModel GetDemoProjectModel()
@@ -84,6 +103,13 @@ namespace ProjectManagerAPI.Tests
                 Priority = 0,
                 managerId = null
             };
+        }
+
+        [TestMethod]
+        public void TestProjectController()
+        {
+            var obj = new ProjectController();
+            Assert.IsNotNull(obj);
         }
     }
 }

@@ -41,6 +41,18 @@ namespace ProjectManagerAPI.Tests
         }
 
         [TestMethod]
+
+        public void Search()
+        {
+            var context = new TestContext();
+            context.Users.Add(GetDemoUser());
+
+            var controller = new UserController(context);
+            var result = controller.Search("syed") as OkNegotiatedContentResult<DbSet<User>>;
+            Assert.IsNull(result);
+        }
+
+        [TestMethod]
         public void SaveUsers()
         {
             var context = new TestContext();
@@ -73,6 +85,13 @@ namespace ProjectManagerAPI.Tests
         User GetDemoUser()
         {
             return new User() { FirstName = "Syed", LastName = "Mohamed", EmployeeID = "10", ProjectID = null, TaskID = null, UserID = 1 };
+        }
+
+        [TestMethod]
+        public void TestUserController()
+        {
+            var obj = new UserController();
+            Assert.IsNotNull(obj);
         }
     }
 }

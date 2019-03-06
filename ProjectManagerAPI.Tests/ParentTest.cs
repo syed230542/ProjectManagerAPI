@@ -31,5 +31,12 @@ namespace ProjectManagerAPI.Tests
 
             };
         }
+
+        [TestMethod]
+        public void TestParentTaskController()
+        {
+            var obj = new ParentTaskController();
+            Assert.IsNotNull(obj);
+        }
     }
 }
